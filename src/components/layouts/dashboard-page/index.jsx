@@ -1,7 +1,10 @@
-import React from 'react'
+import { DrawerDetailTutor } from 'components/molecules'
+import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
 
 const Dashboard = () => {
+
+    const [openDrawer, setOpenDrawer] = useState(false)
 
     const columns = [
         {
@@ -25,10 +28,12 @@ const Dashboard = () => {
             sortable: true,
         },
         {
-            cell: row => <button className='flex items-center gap-1 bg-cyan-600 hover:bg-cyan-500 px-4 py-1 text-white text-xs rounded-md'
-            >
-                detail
-            </button>,
+            cell: row =>
+                <button className='flex items-center gap-1 bg-cyan-600 hover:bg-cyan-500 px-4 py-1 text-white text-xs rounded-md'
+                    onClick={() => setOpenDrawer(true)}
+                >
+                    detail
+                </button>,
             button: true,
         }
     ]
@@ -55,17 +60,24 @@ const Dashboard = () => {
     ]
 
     return (
-        <div className="w-full bg-white px-4 rounded-md">
-            <div>
-                <DataTable
-                    title="Data Tutor Moguru"
-                    columns={columns}
-                    data={datas}
-                    selectableRows
-                    pagination
-                />
+        <>
+            <div className="w-full bg-white px-4 rounded-md">
+                <div>
+                    <DataTable
+                        title="Data Tutor Moguru"
+                        columns={columns}
+                        data={datas}
+                        selectableRows
+                        pagination
+                    />
+                </div>
             </div>
-        </div>
+            <DrawerDetailTutor
+                title={'Detail Tutor'}
+                isOpen={openDrawer}
+                setIsOpen={() => setOpenDrawer(false)}
+            />
+        </>
     )
 }
 

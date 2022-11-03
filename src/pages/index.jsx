@@ -1,7 +1,11 @@
 import { Dashboard, Headers, MainHeader, MainLayout, Sidebar } from "components/layouts";
+import { ModalAddTutor } from "components/molecules";
+import { useState } from "react";
 import DataTable from "react-data-table-component";
 
 export default function Home() {
+  const [openModalAdd, setOpenModalAdd] = useState(false)
+
   const columns = [
     {
       name: 'Nama Lengkap',
@@ -61,6 +65,24 @@ export default function Home() {
     },
   ]
 
-  return <Dashboard />
+  return (
+    <>
+
+      <div className="w-full flex flex-col gap-4 items-center justify-center">
+        <div className="w-full flex items-center justify-end">
+          <button className="p-2 flex items-center justify-center bg-primary-200 text-white rounded-lg hover:shadow-lg"
+            onClick={() => setOpenModalAdd(true)}
+          >
+            Tambah Tutor
+          </button>
+        </div>
+        <Dashboard />
+      </div>
+      <ModalAddTutor
+        isOpen={openModalAdd}
+        onRequestClose={() => setOpenModalAdd(false)}
+      />
+    </>
+  )
 }
 
